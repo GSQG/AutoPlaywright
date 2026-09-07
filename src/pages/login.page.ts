@@ -24,6 +24,10 @@ export class LoginPage extends BasePage {
     await expect(this.page).toHaveURL(/saucedemo\.com/);
   }
 
+  async assertIsLoadedInventory(): Promise<void> {
+    await expect(this.page).toHaveURL(/inventory\.html/);
+  }
+
   async assertErrorMessage(expectedMessage: string): Promise<void> {
     const errorMessageLocator = this.page.locator(this.errorMessage);
     await expect(errorMessageLocator).toBeVisible();
