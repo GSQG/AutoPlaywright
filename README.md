@@ -1,31 +1,173 @@
-INSTALACION Y SETUP
+# Playwright Automation
 
-npm install = instala todas las dependencias del proyecto
-npx playwright install --with-deps = descarga los navegadores y sus dependencias de sistema
+## Instalación y configuración
 
-EJECUTAR TESTS
+### 1. Instalar dependencias
 
-npx playwright test = corre todos los tests en modo headless
-npx playwright test --headed = corre todos los tests mostrando el navegador
-npx playwright test --ui = abre el modo UI interactivo con pick locator y replay
-npx playwright test tests/navigation/login-page.spec.ts = corre solo ese archivo especifico
-npx playwright test -g "debe navegar" = corre solo los tests cuyo nombre coincide con ese texto
-npx playwright test --headed --workers=1 = corre en headed con un solo worker para debuggear
-npx playwright test --debug = abre el inspector y pausa en el primer paso de cada test
+Instala todas las dependencias definidas en el proyecto:
 
-EXTRACCION DE SELECTORES
+```bash
+npm install
+```
 
-npx playwright codegen https://www.saucedemo.com = abre navegador y graba tus acciones generando codigo con selectores
-npx playwright codegen --target=javascript https://www.saucedemo.com = igual al anterior forzando el lenguaje de salida
+### 2. Instalar navegadores de Playwright
 
-REPORTES
+Descarga los navegadores y las dependencias necesarias:
 
-npx playwright show-report = abre el reporte HTML nativo de la ultima corrida
-npx playwright show-trace test-results/ruta/trace.zip = abre el trace viewer de un test que fallo
-npm run allure:generate = genera el reporte Allure a partir de allure-results
-npm run allure:open = abre el reporte Allure generado
+```bash
+npx playwright install --with-deps
+```
 
-CALIDAD DE CODIGO
+### 3. Configurar variables de entorno
 
-npm run lint = corre ESLint sobre todo el proyecto
-npm run format = aplica Prettier y reescribe los archivos con el formato estandar
+Crea un archivo `.env` en la raíz del proyecto:
+
+```env
+TEST_ENV=qa
+BASE_URL=https://www.saucedemo.com
+STANDARD_USER=<usuario>
+STANDARD_PASSWORD=<contraseña>
+```
+
+Para las pruebas con SauceDemo, pueden utilizarse las credenciales de prueba disponibles para el sitio.
+
+> **Importante:** el archivo `.env` no debe incluirse en el repositorio. Las variables de entorno deben mantenerse fuera del control de versiones.
+
+Se recomienda mantener un archivo `.env.example` para documentar la estructura requerida:
+
+```env
+TEST_ENV=qa
+BASE_URL=https://www.saucedemo.com
+STANDARD_USER=
+STANDARD_PASSWORD=
+```
+
+---
+
+## Ejecución de pruebas
+
+### Ejecutar todos los tests
+
+Ejecuta todos los tests en modo *headless*:
+
+```bash
+npx playwright test
+```
+
+### Ejecutar tests mostrando el navegador
+
+```bash
+npx playwright test --headed
+```
+
+### Ejecutar Playwright UI
+
+Abre el modo UI interactivo, con selección de tests, *Pick Locator*, *Replay*, etc.:
+
+```bash
+npx playwright test --ui
+```
+
+### Ejecutar un archivo específico
+
+```bash
+npx playwright test tests/navigation/login-page.spec.ts
+```
+
+### Ejecutar tests por nombre
+
+Ejecuta únicamente los tests cuyo nombre coincida con el texto indicado:
+
+```bash
+npx playwright test -g "debe navegar"
+```
+
+### Ejecutar en modo headed con un solo worker
+
+Útil para realizar debugging controlado:
+
+```bash
+npx playwright test --headed --workers=1
+```
+
+### Ejecutar en modo debug
+
+Abre el Inspector de Playwright y pausa la ejecución durante el test:
+
+```bash
+npx playwright test --debug
+```
+
+---
+
+## Extracción de selectores
+
+### Codegen
+
+Abre el navegador y registra las acciones realizadas, generando código con los selectores correspondientes:
+
+```bash
+npx playwright codegen https://www.saucedemo.com
+```
+
+### Codegen con lenguaje específico
+
+Fuerza JavaScript como lenguaje de salida:
+
+```bash
+npx playwright codegen --target=javascript https://www.saucedemo.com
+```
+
+---
+
+## Reportes y trazas
+
+### Reporte HTML de Playwright
+
+Abre el reporte HTML generado por la última ejecución:
+
+```bash
+npx playwright show-report
+```
+
+### Trace Viewer
+
+Abre el trace de una ejecución específica:
+
+```bash
+npx playwright show-trace test-results/ruta/trace.zip
+```
+
+### Generar reporte Allure
+
+Genera el reporte a partir de los resultados almacenados en `allure-results`:
+
+```bash
+npm run allure:generate
+```
+
+### Abrir reporte Allure
+
+```bash
+npm run allure:open
+```
+
+---
+
+## Calidad de código
+
+### ESLint
+
+Ejecuta ESLint sobre el proyecto:
+
+```bash
+npm run lint
+```
+
+### Prettier
+
+Aplica el formato estándar definido para el proyecto:
+
+```bash
+npm run format
+```
